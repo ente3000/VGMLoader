@@ -1,12 +1,12 @@
 ; Prompt for VGM album URL
-InputBox, VGMSITE, VGMLoader v1.0, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
+InputBox, VGMSITE, VGMLoader v1.1, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
 
 ; If not cancelled
 If !ErrorLevel {
 
 	; If URL is valid
-	If RegExMatch(VGMSITE, "https:\/\/downloads\.khinsider\.com\/game-soundtracks\/album\/[^/]+", VGMSITE) {
-		Progress, 0, Preparing..., Please wait..., VGMLoader v1.0
+	If RegExMatch(VGMSITE, "https?:\/\/(www\.)?downloads\.khinsider\.com\/game-soundtracks\/album\/[^/]+", VGMSITE) {
+		Progress, 0, Preparing..., Please wait..., VGMLoader v1.1
 
 		; Get site from URL
 		UrlDownloadToFile, %VGMSITE%, VGMLoader.html
@@ -24,20 +24,28 @@ If !ErrorLevel {
 
 		; Prompt for output directory
 		Progress, OFF
-		FileSelectFolder, VGMDIR, *%A_WorkingDir%, , Please select the destination folder. A new subfolder with the album's title will be created.
+		FileSelectFolder, VGMDIR, *%A_WorkingDir%, , Please select the destination folder.
 
 		; If not cancelled
 		If !Errorlevel {
 
 			; Switch to output directory
-			Progress, 0, Preparing..., Please wait..., VGMLoader v1.0
 			SetWorkingDir, %VGMDIR%
 
-			; Create album directory
-			FileCreateDir, %VGMALBUM%
-			SetWorkingDir, %VGMALBUM%
+			; Prompt for album subfolder
+			MsgBox, 3, VGMLoader v1.1, Create a new subfolder with the album's title (%VGMALBUM%)?
+
+			; Create album subfolder on demand
+			IfMsgBox, Yes
+				FileCreateDir, %VGMALBUM%
+				SetWorkingDir, %VGMALBUM%
+
+			; Exit on demand
+			IfMsgBox, Cancel
+				Exit
 
 			; Get number of files
+			Progress, 0, Preparing..., Please wait..., VGMLoader v1.1
 			RegExMatch(VGMSITE, "Number of Files: <b>.+<\/b><br>", VGMAMOUNT)
 			StringTrimLeft, VGMAMOUNT, VGMAMOUNT, 20
 			StringTrimRight, VGMAMOUNT, VGMAMOUNT, 8
@@ -62,14 +70,21 @@ If !ErrorLevel {
 				StringTrimLeft, VGMTRACK, VGMTRACK, 33
 				StringTrimRight, VGMTRACK, VGMTRACK, 35
 				SplitPath, VGMTRACK, VGMFILE
+
+				; Decode URL characters
+				Loop
+					If RegExMatch(VGMFILE, "i)(?<=%)[\da-f]{1,2}", VGMHEX)
+						StringReplace, VGMFILE, VGMFILE, `%%VGMHEX%, % Chr("0x" . VGMHEX), All
+					Else
+						Break
 				UrlDownloadToFile, %VGMTRACK%, %VGMFILE%
 			}
 
 			; Finished message popup
 			Progress, OFF
-			MsgBox, , VGMLoader v1.0, Success: %VGMALBUM% has been downloaded.
+			MsgBox, , VGMLoader v1.1, Success: %VGMALBUM% has been downloaded.
 		}
-	} else {
+	} Else {
 
 		; If URL is invalid
 		Goto, VGMINVALID
@@ -80,5 +95,5 @@ Exit
 ; If URL invalid or album not found
 VGMINVALID:
 Progress, OFF
-MsgBox, , VGMLoader, Error: Entered URL does not appear to be a valid VGM album URL, which has to start with https://downloads.khinsider.com/game-soundtracks/album/.
+MsgBox, , VGMLoader, Error: Entered URL does not appear to be a valid VGM album URL.
 Exit
