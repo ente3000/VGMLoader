@@ -1,12 +1,12 @@
 ; Prompt for VGM album URL
-InputBox, VGMSITE, VGMLoader v1.1, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
+InputBox, VGMSITE, VGMLoader v1.1.1, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
 
 ; If not cancelled
 If !ErrorLevel {
 
 	; If URL is valid
 	If RegExMatch(VGMSITE, "https?:\/\/(www\.)?downloads\.khinsider\.com\/game-soundtracks\/album\/[^/]+", VGMSITE) {
-		Progress, 0, Preparing..., Please wait..., VGMLoader v1.1
+		Progress, 0, Preparing..., Please wait..., VGMLoader v1.1.1
 
 		; Get site from URL
 		UrlDownloadToFile, %VGMSITE%, VGMLoader.html
@@ -33,7 +33,7 @@ If !ErrorLevel {
 			SetWorkingDir, %VGMDIR%
 
 			; Prompt for album subfolder
-			MsgBox, 3, VGMLoader v1.1, Create a new subfolder with the album's title (%VGMALBUM%)?
+			MsgBox, 3, VGMLoader v1.1.1, Create a new subfolder with the album's title (%VGMALBUM%)?
 
 			; Create album subfolder on demand
 			IfMsgBox, Yes
@@ -45,7 +45,7 @@ If !ErrorLevel {
 				Exit
 
 			; Get number of files
-			Progress, 0, Preparing..., Please wait..., VGMLoader v1.1
+			Progress, 0, Preparing..., Please wait..., VGMLoader v1.1.1
 			RegExMatch(VGMSITE, "Number of Files: <b>.+<\/b><br>", VGMAMOUNT)
 			StringTrimLeft, VGMAMOUNT, VGMAMOUNT, 20
 			StringTrimRight, VGMAMOUNT, VGMAMOUNT, 8
@@ -53,14 +53,14 @@ If !ErrorLevel {
 			; Get track URLs
 			VGMLOOP = 1
 			VGMCURRENT = 0
-			While VGMLOOP := RegExMatch(VGMSITE,"<td><a href="".+"">Download<\/a><\/td>", VGMTRACK, VGMLOOP + StrLen(VGMTRACK)) {
+			While VGMLOOP := RegExMatch(VGMSITE,"	 	<td><a href="".+"">", VGMTRACK, VGMLOOP + StrLen(VGMTRACK)) {
 
 				; Download track site
 				VGMCURRENT += 1
 				VGMPROGRESS := (VGMCURRENT - 1) / VGMAMOUNT * 100
 				Progress, %VGMPROGRESS%, Downloading track %VGMCURRENT% of %VGMAMOUNT%..., Downloading %VGMALBUM%...
-				StringTrimLeft, VGMTRACK, VGMTRACK, 13
-				StringTrimRight, VGMTRACK, VGMTRACK, 19
+				StringTrimLeft, VGMTRACK, VGMTRACK, 16
+				StringTrimRight, VGMTRACK, VGMTRACK, 2
 				UrlDownloadToFile, %VGMTRACK%, VGMLoader.html
 				FileRead, VGMTRACK, VGMLoader.html
 				FileDelete, VGMLoader.html
@@ -82,7 +82,7 @@ If !ErrorLevel {
 
 			; Finished message popup
 			Progress, OFF
-			MsgBox, , VGMLoader v1.1, Success: %VGMALBUM% has been downloaded.
+			MsgBox, , VGMLoader v1.1.1, Success: %VGMALBUM% has been downloaded.
 		}
 	} Else {
 
