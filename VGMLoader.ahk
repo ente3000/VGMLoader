@@ -1,12 +1,12 @@
 ; Prompt for VGM album URL
-InputBox, VGMSITE, VGMLoader v1.1.2, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
+InputBox, VGMSITE, VGMLoader v1.1.3, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
 
 ; If not cancelled
 If !ErrorLevel {
 
 	; If URL is valid
 	If RegExMatch(VGMSITE, "https?:\/\/(www\.)?downloads\.khinsider\.com\/game-soundtracks\/album\/[^/]+", VGMSITE) {
-		Progress, 0, Preparing..., Please wait..., VGMLoader v1.1.2
+		Progress, 0, Preparing..., Please wait..., VGMLoader v1.1.3
 
 		; Get site from URL
 		UrlDownloadToFile, %VGMSITE%, VGMLoader.html
@@ -33,7 +33,7 @@ If !ErrorLevel {
 			SetWorkingDir, %VGMDIR%
 
 			; Prompt for album subfolder
-			MsgBox, 3, VGMLoader v1.1.2, Create a new subfolder with the album's title (%VGMALBUM%)?
+			MsgBox, 3, VGMLoader v1.1.3, Create a new subfolder with the album's title (%VGMALBUM%)?
 
 			; Create album subfolder on demand
 			IfMsgBox, Yes
@@ -45,7 +45,7 @@ If !ErrorLevel {
 				Exit
 
 			; Get number of files
-			Progress, 0, Preparing..., Please wait..., VGMLoader v1.1.2
+			Progress, 0, Preparing..., Please wait..., VGMLoader v1.1.3
 			RegExMatch(VGMSITE, "Number of Files: <b>.+<\/b><br>", VGMAMOUNT)
 			StringTrimLeft, VGMAMOUNT, VGMAMOUNT, 20
 			StringTrimRight, VGMAMOUNT, VGMAMOUNT, 8
@@ -61,6 +61,7 @@ If !ErrorLevel {
 				Progress, %VGMPROGRESS%, Downloading track %VGMCURRENT% of %VGMAMOUNT%..., Downloading %VGMALBUM%...
 				StringTrimLeft, VGMTRACK, VGMTRACK, 35
 				StringTrimRight, VGMTRACK, VGMTRACK, 2
+				VGMTRACK = https://downloads.khinsider.com%VGMTRACK%
 				UrlDownloadToFile, %VGMTRACK%, VGMLoader.html
 				FileRead, VGMTRACK, VGMLoader.html
 				FileDelete, VGMLoader.html
@@ -82,7 +83,7 @@ If !ErrorLevel {
 
 			; Finished message popup
 			Progress, OFF
-			MsgBox, , VGMLoader v1.1.2, Success: %VGMALBUM% has been downloaded.
+			MsgBox, , VGMLoader v1.1.3, Success: %VGMALBUM% has been downloaded.
 		}
 	} Else {
 
