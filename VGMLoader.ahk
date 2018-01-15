@@ -48,11 +48,11 @@ If !ErrorLevel {
 			; Prompt for download method
 			Progress, 0, Preparing..., Please wait..., VGMLoader v1.2
 			Gui, Add, Text, , VGMLoader found the following supported tools.`rPlease choose your preferred download program.
-			VGM1PATH := RegExReplace(ComObjCreate("WScript.Shell").Exec("cmd.exe /c where aria2c.exe").StdOut.ReadAll(), "\n.*")
-			VGM3PATH := RegExReplace(ComObjCreate("WScript.Shell").Exec("cmd.exe /c where curl.exe").StdOut.ReadAll(), "\n.*")
-			VGM4PATH := RegExReplace(ComObjCreate("WScript.Shell").Exec("cmd.exe /c where http.exe").StdOut.ReadAll(), "\n.*")
-			VGM5PATH := RegExReplace(ComObjCreate("WScript.Shell").Exec("cmd.exe /c where powershell.exe").StdOut.ReadAll(), "\n.*")
-			VGM6PATH := RegExReplace(ComObjCreate("WScript.Shell").Exec("cmd.exe /c where wget.exe").StdOut.ReadAll(), "\n.*")
+			VGM1PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where aria2c.exe").StdOut.ReadAll()
+			VGM3PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where curl.exe").StdOut.ReadAll()
+			VGM4PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where http.exe").StdOut.ReadAll()
+			VGM5PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where powershell.exe").StdOut.ReadAll()
+			VGM6PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where wget.exe").StdOut.ReadAll()
 			If (VGM1PATH)
 				Gui, Add, Radio, vVGM1CHOICE gVGMDLOAD, aria2
 			Gui, Add, Radio, vVGM2CHOICE gVGMDLOAD, AutoHotkey
