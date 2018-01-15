@@ -132,7 +132,7 @@ If !ErrorLevel {
 			; Finished message popup
 			Progress, OFF
 			MsgBox, , VGMLoader v1.2, Success: %VGMALBUM% has been downloaded.
-			Return
+			Exit
 		}
 	} Else {
 
