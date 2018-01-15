@@ -118,7 +118,7 @@ If !ErrorLevel {
 				If VGM1CHOICE
 					RunWait, aria2c %VGMTRACK% -o "%VGMFILE%", , Hide
 				If VGM2CHOICE
-					UrlDownloadToFile, %VGMTRACK%, "%VGMFILE%"
+					UrlDownloadToFile, %VGMTRACK%, %VGMFILE%
 				If VGM3CHOICE
 					RunWait, curl -k %VGMTRACK% -o "%VGMFILE%", , Hide
 				If VGM4CHOICE
@@ -132,6 +132,7 @@ If !ErrorLevel {
 			; Finished message popup
 			Progress, OFF
 			MsgBox, , VGMLoader v1.2, Success: %VGMALBUM% has been downloaded.
+			Return
 		}
 	} Else {
 
