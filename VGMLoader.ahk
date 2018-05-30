@@ -1,12 +1,12 @@
 ; Prompt for VGM album URL
-InputBox, VGMSITE, VGMLoader v1.2, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
+InputBox, VGMSITE, VGMLoader v1.3, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
 
 ; If not cancelled
 If !ErrorLevel {
 
 	; If URL is valid
 	If RegExMatch(VGMSITE, "downloads\.khinsider\.com\/game-soundtracks\/album\/[^/]+", VGMSITE) {
-		Progress, 0, Preparing..., Please wait..., VGMLoader v1.2
+		Progress, 0, Preparing..., Please wait..., VGMLoader v1.3
 
 		; Get site from URL
 		VGMSITE = https://%VGMSITE%
@@ -23,6 +23,23 @@ If !ErrorLevel {
 		IfEqual, VGMALBUM, Ooops!
 		Goto, VGMINVALID
 
+		; If applicable, ask for audio codec
+		If RegExMatch(VGMSITE, "click to download&nbsp;\(FLAC\+MP3\)") {
+			Progress, OFF
+			Gui, Add, Text, , Album is available in both MP3 and FLAC.`rPlease choose your preferred audio codec.
+			Gui, Add, Radio, vVGM1AUDIO gVGMDCODEC, MP3
+			Gui, Add, Radio, vVGM2AUDIO gVGMDCODEC, FLAC
+			Gui, Show, , VGMLoader v1.3
+			Return
+		}
+		VGMDCODEC:
+			Gui, Submit
+			Gui, Destroy
+		Progress, 0, Preparing..., Please wait..., VGMLoader v1.3
+		VGMFORMAT = MP3
+		If VGM2AUDIO
+			VGMFORMAT = FLAC
+
 		; Prompt for output directory
 		Progress, OFF
 		FileSelectFolder, VGMDIR, *%A_WorkingDir%, , Please select the destination folder.
@@ -34,7 +51,7 @@ If !ErrorLevel {
 			SetWorkingDir, %VGMDIR%
 
 			; Prompt for album subfolder
-			MsgBox, 3, VGMLoader v1.2, Create a new subfolder with the album's title (%VGMALBUM%)?
+			MsgBox, 3, VGMLoader v1.3, Create a new subfolder with the album's title (%VGMALBUM%)?
 
 			; Create album subfolder on demand
 			IfMsgBox, Yes
@@ -46,7 +63,7 @@ If !ErrorLevel {
 				Exit
 
 			; Prompt for download method
-			Progress, 0, Preparing..., Please wait..., VGMLoader v1.2
+			Progress, 0, Preparing..., Please wait..., VGMLoader v1.3
 			Gui, Add, Text, , VGMLoader found the following supported tools.`rPlease choose your preferred download program.
 			VGM1PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where aria2c.exe").StdOut.ReadAll()
 			VGM3PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where curl.exe").StdOut.ReadAll()
@@ -65,13 +82,14 @@ If !ErrorLevel {
 			If (VGM6PATH)
 				Gui, Add, Radio, vVGM6CHOICE gVGMDLOAD, Wget
 			Progress, OFF
-			Gui, Show, , VGMLoader v1.2
+			Gui, Show, , VGMLoader v1.3
 			Return
 			VGMDLOAD:
 				Gui, Submit
+				Gui, Destroy
 
 			; Get number of files
-			Progress, 0, Preparing..., Please wait..., VGMLoader v1.2
+			Progress, 0, Preparing..., Please wait..., VGMLoader v1.3
 			RegExMatch(VGMSITE, "Number of Files: <b>.+<\/b><br>", VGMAMOUNT)
 			StringTrimLeft, VGMAMOUNT, VGMAMOUNT, 20
 			StringTrimRight, VGMAMOUNT, VGMAMOUNT, 8
@@ -104,9 +122,9 @@ If !ErrorLevel {
 				FileDelete, VGMLoader.html
 
 				; Download track itself
-				RegExMatch(VGMTRACK, "<a style=""color: #21363f;"" href="".+"">Click here to download as MP3<\/a>", VGMTRACK)
+				RegExMatch(VGMTRACK, "<a style=""color: #21363f;"" href="".+"">Click here to download as " . VGMFORMAT . "<\/a>", VGMTRACK)
 				StringTrimLeft, VGMTRACK, VGMTRACK, 33
-				StringTrimRight, VGMTRACK, VGMTRACK, 35
+				StringTrimRight, VGMTRACK, VGMTRACK, 32 + StrLen(VGMFORMAT)
 				SplitPath, VGMTRACK, VGMFILE
 
 				; Decode URL characters
@@ -131,7 +149,7 @@ If !ErrorLevel {
 
 			; Finished message popup
 			Progress, OFF
-			MsgBox, , VGMLoader v1.2, Success: %VGMALBUM% has been downloaded.
+			MsgBox, , VGMLoader v1.3, Success: %VGMALBUM% has been downloaded.
 			Exit
 		}
 	} Else {
