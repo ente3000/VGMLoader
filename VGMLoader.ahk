@@ -107,17 +107,17 @@ If !ErrorLevel {
 				StringTrimRight, VGMTRACK, VGMTRACK, 2
 				VGMTRACK = https://downloads.khinsider.com%VGMTRACK%
 				If VGM1CHOICE
-					RunWait, aria2c %VGMTRACK% -o VGMLoader.html, , Hide
+					RunWait, aria2c --check-certificate=false %VGMTRACK% -o VGMLoader.html, , Hide
 				If VGM2CHOICE
 					UrlDownloadToFile, %VGMTRACK%, VGMLoader.html
 				If VGM3CHOICE
 					RunWait, curl -k %VGMTRACK% -o VGMLoader.html, , Hide
 				If VGM4CHOICE
-					RunWait, http %VGMTRACK% > VGMLoader.html, , Hide
+					RunWait, http --verify=no %VGMTRACK% > VGMLoader.html, , Hide
 				If VGM5CHOICE
 					RunWait, powershell iwr %VGMTRACK% -outf VGMLoader.html, , Hide
 				If VGM6CHOICE
-					RunWait, wget %VGMTRACK% -O VGMLoader.html, , Hide
+					RunWait, wget --no-check-certificate %VGMTRACK% -O VGMLoader.html, , Hide
 				FileRead, VGMTRACK, VGMLoader.html
 				FileDelete, VGMLoader.html
 
@@ -134,17 +134,17 @@ If !ErrorLevel {
 					Else
 						Break
 				If VGM1CHOICE
-					RunWait, aria2c %VGMTRACK% -o "%VGMFILE%", , Hide
+					RunWait, aria2c --check-certificate=false %VGMTRACK% -o "%VGMFILE%", , Hide
 				If VGM2CHOICE
 					UrlDownloadToFile, %VGMTRACK%, %VGMFILE%
 				If VGM3CHOICE
 					RunWait, curl -k %VGMTRACK% -o "%VGMFILE%", , Hide
 				If VGM4CHOICE
-					RunWait, http %VGMTRACK% > "%VGMFILE%", , Hide
+					RunWait, http --verify=no %VGMTRACK% > "%VGMFILE%", , Hide
 				If VGM5CHOICE
 					RunWait, powershell iwr %VGMTRACK% -outf '%VGMFILE%', , Hide
 				If VGM6CHOICE
-					RunWait, wget %VGMTRACK% -O "%VGMFILE%", , Hide
+					RunWait, wget --no-check-certificate %VGMTRACK% -O "%VGMFILE%", , Hide
 			}
 
 			; Finished message popup
