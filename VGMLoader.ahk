@@ -31,6 +31,8 @@ If !ErrorLevel {
 			Gui, Add, Radio, vVGM2AUDIO gVGMDCODEC, FLAC
 		If RegExMatch(VGMSITE, "click to download&nbsp;\(.*OGG.*\)")
 			Gui, Add, Radio, vVGM3AUDIO gVGMDCODEC, OGG
+		If RegExMatch(VGMSITE, "click to download&nbsp;\(.*M4A.*\)")
+			Gui, Add, Radio, vVGM4AUDIO gVGMDCODEC, M4A
 		Gui, Show, , VGMLoader v1.4.1
 		Return
 		VGMDCODEC:
@@ -43,6 +45,8 @@ If !ErrorLevel {
 			VGMFORMAT = FLAC
 		If VGM3AUDIO
 			VGMFORMAT = OGG
+		If VGM4AUDIO
+			VGMFORMAT = M4A
 
 		; Prompt for output directory
 		Progress, OFF
