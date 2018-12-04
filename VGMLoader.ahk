@@ -26,8 +26,7 @@ If !ErrorLevel {
 		; Ask for audio codec
 		Progress, OFF
 		Gui, Add, Text, , Please choose your preferred audio codec.
-		If RegExMatch(VGMSITE, "click to download&nbsp;\(.*MP3.*\)")
-			Gui, Add, Radio, vVGM1AUDIO gVGMDCODEC, MP3
+		Gui, Add, Radio, vVGM1AUDIO gVGMDCODEC, MP3
 		If RegExMatch(VGMSITE, "click to download&nbsp;\(.*FLAC.*\)")
 			Gui, Add, Radio, vVGM2AUDIO gVGMDCODEC, FLAC
 		If RegExMatch(VGMSITE, "click to download&nbsp;\(.*OGG.*\)")
