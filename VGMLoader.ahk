@@ -72,7 +72,7 @@ If !ErrorLevel {
 
 			; Exit on demand
 			IfMsgBox, Cancel
-				Exit
+				ExitApp, 0
 
 			; Prompt for download method
 			Progress, 0, Preparing..., Please wait..., VGMLoader v1.5
@@ -162,9 +162,9 @@ If !ErrorLevel {
 			; Finished message popup
 			Progress, OFF
 			MsgBox, , VGMLoader v1.5, Success: %VGMALBUM% has been downloaded.
-			Exit
+			ExitApp, 0
 		} Else {
-			Exit
+			ExitApp, 0
 		}
 	} Else {
 
@@ -172,10 +172,10 @@ If !ErrorLevel {
 		Goto, VGMINVALID
 	}
 }
-Exit
+ExitApp, 0
 
 ; If URL invalid or album not found
 VGMINVALID:
 Progress, OFF
 MsgBox, , VGMLoader, Error: Entered URL does not appear to be a valid VGM album URL.
-Exit
+ExitApp, 1
