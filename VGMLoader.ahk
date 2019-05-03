@@ -1,12 +1,12 @@
 ; Prompt for VGM album URL
-InputBox, VGMSITE, VGMLoader v1.5, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
+InputBox, VGMSITE, VGMLoader v1.6, Please enter an album URL., , 500, 125, , , , , https://downloads.khinsider.com/game-soundtracks/album/
 
 ; If not cancelled
 If !ErrorLevel {
 
 	; If URL is valid
 	If RegExMatch(VGMSITE, "downloads\.khinsider\.com\/game-soundtracks\/album\/[^/]+", VGMSITE) {
-		Progress, 0, Preparing..., Please wait..., VGMLoader v1.5
+		Progress, 0, Preparing..., Please wait..., VGMLoader v1.6
 
 		; Get site from URL
 		VGMSITE = https://%VGMSITE%
@@ -35,12 +35,12 @@ If !ErrorLevel {
 			Gui, Add, Radio, vVGM4AUDIO gVGMDCODEC, M4A
 		If RegExMatch(VGMSITE, "click to download&nbsp;\(.*WAV.*\)")
 			Gui, Add, Radio, vVGM5AUDIO gVGMDCODEC, WAV
-		Gui, Show, , VGMLoader v1.5
+		Gui, Show, , VGMLoader v1.6
 		Return
 		VGMDCODEC:
 			Gui, Submit
 			Gui, Destroy
-		Progress, 0, Preparing..., Please wait..., VGMLoader v1.5
+		Progress, 0, Preparing..., Please wait..., VGMLoader v1.6
 		If VGM1AUDIO
 			VGMFORMAT = MP3
 		If VGM2AUDIO
@@ -63,7 +63,7 @@ If !ErrorLevel {
 			SetWorkingDir, %VGMDIR%
 
 			; Prompt for album subfolder
-			MsgBox, 3, VGMLoader v1.5, Create a new subfolder with the album's title (%VGMALBUM%)?
+			MsgBox, 3, VGMLoader v1.6, Create a new subfolder with the album's title (%VGMALBUM%)?
 
 			; Create album subfolder on demand
 			IfMsgBox, Yes
@@ -75,13 +75,14 @@ If !ErrorLevel {
 				ExitApp, 0
 
 			; Prompt for download method
-			Progress, 0, Preparing..., Please wait..., VGMLoader v1.5
+			Progress, 0, Preparing..., Please wait..., VGMLoader v1.6
 			Gui, Add, Text, , VGMLoader found the following supported tools.`rPlease choose your preferred download program.
 			VGM1PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where aria2c.exe").StdOut.ReadAll()
 			VGM3PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where curl.exe").StdOut.ReadAll()
 			VGM4PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where http.exe").StdOut.ReadAll()
-			VGM5PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where powershell.exe").StdOut.ReadAll()
-			VGM6PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where wget.exe").StdOut.ReadAll()
+			VGM5PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where httrack.exe").StdOut.ReadAll()
+			VGM6PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where powershell.exe").StdOut.ReadAll()
+			VGM7PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where wget.exe").StdOut.ReadAll()
 			If (VGM1PATH)
 				Gui, Add, Radio, vVGM1CHOICE gVGMDLOAD, aria2
 			Gui, Add, Radio, vVGM2CHOICE gVGMDLOAD, AutoHotkey
@@ -90,18 +91,20 @@ If !ErrorLevel {
 			If (VGM4PATH)
 				Gui, Add, Radio, vVGM4CHOICE gVGMDLOAD, HTTPie
 			If (VGM5PATH)
-				Gui, Add, Radio, vVGM5CHOICE gVGMDLOAD, PowerShell
+				Gui, Add, Radio, vVGM5CHOICE gVGMDLOAD, HTTrack
 			If (VGM6PATH)
-				Gui, Add, Radio, vVGM6CHOICE gVGMDLOAD, Wget
+				Gui, Add, Radio, vVGM6CHOICE gVGMDLOAD, PowerShell
+			If (VGM7PATH)
+				Gui, Add, Radio, vVGM7CHOICE gVGMDLOAD, Wget
 			Progress, OFF
-			Gui, Show, , VGMLoader v1.5
+			Gui, Show, , VGMLoader v1.6
 			Return
 			VGMDLOAD:
 				Gui, Submit
 				Gui, Destroy
 
 			; Get number of files
-			Progress, 0, Preparing..., Please wait..., VGMLoader v1.5
+			Progress, 0, Preparing..., Please wait..., VGMLoader v1.6
 			RegExMatch(VGMSITE, "Number of Files: <b>.+<\/b><br>", VGMAMOUNT)
 			StringTrimLeft, VGMAMOUNT, VGMAMOUNT, 20
 			StringTrimRight, VGMAMOUNT, VGMAMOUNT, 8
@@ -127,8 +130,10 @@ If !ErrorLevel {
 				If VGM4CHOICE
 					RunWait, http --verify=no %VGMTRACK% > VGMLoader.html, , Hide
 				If VGM5CHOICE
-					RunWait, powershell iwr %VGMTRACK% -outf VGMLoader.html, , Hide
+					RunWait, httrack -g %VGMTRACK% -N VGMLoader.html, , Hide
 				If VGM6CHOICE
+					RunWait, powershell iwr %VGMTRACK% -outf VGMLoader.html, , Hide
+				If VGM7CHOICE
 					RunWait, wget --no-check-certificate %VGMTRACK% -O VGMLoader.html, , Hide
 				FileRead, VGMTRACK, VGMLoader.html
 				FileDelete, VGMLoader.html
@@ -154,14 +159,16 @@ If !ErrorLevel {
 				If VGM4CHOICE
 					RunWait, http --verify=no "%VGMTRACK%" > "%VGMFILE%", , Hide
 				If VGM5CHOICE
-					RunWait, powershell iwr '%VGMTRACK%' -outf '%VGMFILE%', , Hide
+					RunWait, httrack -g "%VGMTRACK%" -N "%VGMFILE%", , Hide
 				If VGM6CHOICE
+					RunWait, powershell iwr '%VGMTRACK%' -outf '%VGMFILE%', , Hide
+				If VGM7CHOICE
 					RunWait, wget --no-check-certificate "%VGMTRACK%" -O "%VGMFILE%", , Hide
 			}
 
 			; Finished message popup
 			Progress, OFF
-			MsgBox, , VGMLoader v1.5, Success: %VGMALBUM% has been downloaded.
+			MsgBox, , VGMLoader v1.6, Success: %VGMALBUM% has been downloaded.
 			ExitApp, 0
 		} Else {
 			ExitApp, 0
