@@ -15,14 +15,14 @@ Check out the [Releases](../../releases) tab for Windows executables and source 
 
 ## Screenshots
 
-![](https://my.mixtape.moe/zxmyae.png)  
-![](https://my.mixtape.moe/ocxxbr.png)  
-![](https://my.mixtape.moe/rasdkk.png)  
-![](https://my.mixtape.moe/uimsff.png)  
-![](https://my.mixtape.moe/wghipg.png)  
-![](https://my.mixtape.moe/tmlnig.png)  
-![](https://my.mixtape.moe/ikxgja.png)  
-![](https://my.mixtape.moe/erxaoj.png)
+![](https://share.dmca.gripe/78HrAWm1Q8rFdq8v.png)  
+![](https://share.dmca.gripe/aTOMfyScYx37fVKt.png)  
+![](https://share.dmca.gripe/gdxz1aN57GJNJZUP.png)  
+![](https://share.dmca.gripe/hqmANHHeSq4EV69H.png)  
+![](https://share.dmca.gripe/kCP38kA2DUucMbrN.png)  
+![](https://share.dmca.gripe/sIb2DSo2nir5E3Xb.png)  
+![](https://share.dmca.gripe/EuFYUNF9ZUtVzf51.png)  
+![](https://share.dmca.gripe/8vvJj61Ni6CQQC9E.png)
 
 ## License
 
