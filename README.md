@@ -2,7 +2,9 @@
 
 Automatically downloads albums from [KHInsider](https://downloads.khinsider.com/), because that feature is currently behind a paywall.
 
-Check out the [Releases](../../releases) tab for Windows executables and source code downloads!
+Check out the [Releases](https://github.com/TheLastZombie/VGMLoader/releases) tab for Windows executables and source code downloads!
+
+If you're familiar with and prefer youtube-dl for downloading, you can also use [my custom fork](https://github.com/TheLastZombie/youtube-dl). However, it does not yet support multiple codecs and will always download MP3.
 
 ## Usage
 
