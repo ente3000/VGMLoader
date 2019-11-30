@@ -141,9 +141,9 @@ If !ErrorLevel {
 				FileDelete, VGMLoader.html
 
 				; Download track itself
-				RegExMatch(VGMTRACK, "<a style=""color: #21363f;"" href="".+"">Click here to download as " . VGMFORMAT . "<\/a>", VGMTRACK)
-				StringTrimLeft, VGMTRACK, VGMTRACK, 33
-				StringTrimRight, VGMTRACK, VGMTRACK, 32 + StrLen(VGMFORMAT)
+				RegExMatch(VGMTRACK, "<p><a style=""color: #21363f;"" href="".+""><span class=""songDownloadLink""><i class=""material-icons"">get_app<\/i>Click here to download as " . VGMFORMAT . "<\/span><\/a><\/b>", VGMTRACK)
+				StringTrimLeft, VGMTRACK, VGMTRACK, 36
+				StringTrimRight, VGMTRACK, VGMTRACK, 111 + StrLen(VGMFORMAT)
 				SplitPath, VGMTRACK, VGMFILE
 
 				; Decode URL characters
