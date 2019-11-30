@@ -54,7 +54,7 @@ class KHInsiderTrackIE(InfoExtractor):
         webpage = self._download_webpage(url, video_id)
         title = self._html_search_regex(r'Song name: <b>(.*)</b>', webpage, 'title')
         formats = []
-        for a in re.findall(r'<p><a[^>]*href="(.+)"[^>]*><span[^>]*class="songDownloadLink"[^>]*>', webpage):
+        for a in re.findall(r'<a[^>]*href="(.+)"[^>]*><span[^>]*class="songDownloadLink"[^>]*>', webpage):
             formats.append({
                 'url': a
             })
