@@ -17,14 +17,14 @@ If you're familiar with the command line and prefer youtube-dl for downloading, 
 
 ## Screenshots
 
-![](https://share.dmca.gripe/78HrAWm1Q8rFdq8v.png)  
-![](https://share.dmca.gripe/aTOMfyScYx37fVKt.png)  
-![](https://share.dmca.gripe/gdxz1aN57GJNJZUP.png)  
-![](https://share.dmca.gripe/hqmANHHeSq4EV69H.png)  
-![](https://share.dmca.gripe/kCP38kA2DUucMbrN.png)  
-![](https://share.dmca.gripe/sIb2DSo2nir5E3Xb.png)  
-![](https://share.dmca.gripe/EuFYUNF9ZUtVzf51.png)  
-![](https://share.dmca.gripe/8vvJj61Ni6CQQC9E.png)
+![](screenshots/1.png)  
+![](screenshots/2.png)  
+![](screenshots/3.png)  
+![](screenshots/4.png)  
+![](screenshots/5.png)  
+![](screenshots/6.png)  
+![](screenshots/7.png)  
+![](screenshots/8.png)
 
 ## License
 
