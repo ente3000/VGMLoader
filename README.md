@@ -13,7 +13,7 @@ If you're familiar with the command line and prefer youtube-dl for downloading, 
 3. Enter the URL and choose a codec.
 4. Configure the destination folder.
 5. Select a preferred download program.
-6. Have a cup of coffee. ☕️
+6. Have a cup of tea. 🍵
 
 ## Screenshots
 
