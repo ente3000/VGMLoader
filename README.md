@@ -6,6 +6,8 @@ Check out the [Releases](https://github.com/TheLastZombie/VGMLoader/releases) ta
 
 If you're familiar with the command line and prefer youtube-dl for downloading, you can also use [my extractor](https://github.com/TheLastZombie/VGMLoader/blob/master/khinsider.py).
 
+There is also a userscript which you can use with, for example, Tampermonkey, available [here](https://github.com/TheLastZombie/userscripts/#vgmloaderx-).
+
 ## Usage
 
 1. Go to KHInsider and find an album.
