@@ -163,6 +163,8 @@ If !ErrorLevel {
 				If VGM5CHOICE
 					RunWait, httrack -g "%VGMTRACK%" -N "%VGMFILE%", , Hide
 				If VGM6CHOICE
+					VGMTRACK := StrReplace(VGMTRACK, "'", "''")
+					VGMFILE := StrReplace(VGMFILE, "'", "''")
 					RunWait, powershell iwr '%VGMTRACK%' -outf '%VGMFILE%', , Hide
 				If VGM7CHOICE
 					RunWait, wget --no-check-certificate "%VGMTRACK%" -O "%VGMFILE%", , Hide
