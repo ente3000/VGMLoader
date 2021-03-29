@@ -81,8 +81,9 @@ If !ErrorLevel {
 			VGM3PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where curl.exe").StdOut.ReadAll()
 			VGM4PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where http.exe").StdOut.ReadAll()
 			VGM5PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where httrack.exe").StdOut.ReadAll()
-			VGM6PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where powershell.exe").StdOut.ReadAll()
+			VGM9PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where pwsh.exe").StdOut.ReadAll()
 			VGM7PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where wget.exe").StdOut.ReadAll()
+			VGM6PATH := ComObjCreate("WScript.Shell").Exec("cmd.exe /c where powershell.exe").StdOut.ReadAll()
 			If VGM1PATH
 				Gui, Add, Radio, vVGM1CHOICE gVGMDLOAD, aria2
 			Gui, Add, Radio, vVGM2CHOICE gVGMDLOAD, AutoHotkey
@@ -92,10 +93,12 @@ If !ErrorLevel {
 				Gui, Add, Radio, vVGM4CHOICE gVGMDLOAD, HTTPie
 			If VGM5PATH
 				Gui, Add, Radio, vVGM5CHOICE gVGMDLOAD, HTTrack
-			If VGM6PATH
-				Gui, Add, Radio, vVGM6CHOICE gVGMDLOAD, PowerShell
+			If VGM9PATH
+				Gui, Add, Radio, vVGM9CHOICE gVGMDLOAD, PowerShell
 			If VGM7PATH
 				Gui, Add, Radio, vVGM7CHOICE gVGMDLOAD, Wget
+			If VGM6PATH
+				Gui, Add, Radio, vVGM6CHOICE gVGMDLOAD, Windows PowerShell
 			Gui, Add, Text, , Or configure special download behaviour.
 			Gui, Add, Radio, vVGM8CHOICE gVGMDLOAD, Write links to file
 			Progress, OFF
@@ -133,10 +136,12 @@ If !ErrorLevel {
 					RunWait, http --verify=no %VGMTRACK% > VGMLoader.html, , Hide
 				If VGM5CHOICE
 					RunWait, httrack -g %VGMTRACK% -N VGMLoader.html, , Hide
-				If VGM6CHOICE
-					RunWait, powershell iwr %VGMTRACK% -outf VGMLoader.html, , Hide
+				If VGM9CHOICE
+					RunWait, pwsh -c iwr %VGMTRACK% -outf VGMLoader.html, , Hide
 				If VGM7CHOICE
 					RunWait, wget --no-check-certificate %VGMTRACK% -O VGMLoader.html, , Hide
+				If VGM6CHOICE
+					RunWait, powershell iwr %VGMTRACK% -outf VGMLoader.html, , Hide
 				FileRead, VGMTRACK, VGMLoader.html
 				FileDelete, VGMLoader.html
 
@@ -162,12 +167,16 @@ If !ErrorLevel {
 					RunWait, http --verify=no "%VGMTRACK%" > "%VGMFILE%", , Hide
 				If VGM5CHOICE
 					RunWait, httrack -g "%VGMTRACK%" -N "%VGMFILE%", , Hide
+				If VGM9CHOICE
+					VGMTRACK := StrReplace(VGMTRACK, "'", "''")
+					VGMFILE := StrReplace(VGMFILE, "'", "''")
+					RunWait, pwsh -c iwr '%VGMTRACK%' -outf '%VGMFILE%', , Hide
+				If VGM7CHOICE
+					RunWait, wget --no-check-certificate "%VGMTRACK%" -O "%VGMFILE%", , Hide
 				If VGM6CHOICE
 					VGMTRACK := StrReplace(VGMTRACK, "'", "''")
 					VGMFILE := StrReplace(VGMFILE, "'", "''")
 					RunWait, powershell iwr '%VGMTRACK%' -outf '%VGMFILE%', , Hide
-				If VGM7CHOICE
-					RunWait, wget --no-check-certificate "%VGMTRACK%" -O "%VGMFILE%", , Hide
 				If VGM8CHOICE
 					FileAppend, %VGMTRACK%`n, VGMLoader.txt
 			}
