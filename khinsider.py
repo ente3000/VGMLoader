@@ -6,7 +6,7 @@ import re
 
 
 class KHInsiderAlbumIE(InfoExtractor):
-    _VALID_URL = r'https?://downloads\.khinsider\.com/game-soundtracks/album/(?P<id>[A-Za-z0-9-]+)$'
+    _VALID_URL = r'https?://downloads\.khinsider\.com/game-soundtracks/album/(?P<id>[A-Za-z0-9-.]+)$'
     _TEST = {
         'url': 'https://downloads.khinsider.com/game-soundtracks/album/super-mario-bros',
         'info_dict': {
