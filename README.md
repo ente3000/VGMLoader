@@ -1,5 +1,11 @@
 # VGMLoader
 
+---
+
+**This project is [not maintained](https://github.com/TheLastZombie/VGMLoader/issues/11#issuecomment-871325599). Depending on your use case, please use [VGMLoaderX](https://github.com/TheLastZombie/userscripts/#vgmloaderx-), the [youtube-dl extractor](https://github.com/TheLastZombie/VGMLoader/issues/6#issuecomment-786627407), one of the [other downloaders](https://github.com/search?q=khinsider&s=stars) out there, [donate](https://downloads.khinsider.com/forums/index.php?account/upgrades) to enable native batch downloading for your account or use [another site](https://www.sittingonclouds.net/).**
+
+---
+
 Automatically downloads albums from [KHInsider](https://downloads.khinsider.com/), because that feature is currently behind a paywall.
 
 Check out the [Releases](https://github.com/TheLastZombie/VGMLoader/releases) tab for Windows executables and source code downloads!
